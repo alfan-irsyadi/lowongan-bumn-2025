@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // List of job streams
-const jobStreams = [
+export const jobStreams = [
     "Developer Information Technology",
     "Analyst Research",
     "Digitalisasi & IT",

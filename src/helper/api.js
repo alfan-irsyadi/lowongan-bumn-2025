@@ -1,12 +1,32 @@
 import axios from 'axios';
+const isNode = typeof process !== "undefined" && process?.versions?.node;
+let apiKey = "";
 
+// Function to initialize API key (handles async dotenv)
+async function initializeApiKey() {
+    if (isNode) {
+        const dotenv = await import("dotenv");
+        dotenv.config();
+        apiKey = process.env.TOGETHER_API_KEY;
+    } else {
+        apiKey = import.meta.env.VITE_TOGETHER_API_KEY;
+    }
+
+    console.log("API Key Loaded:", apiKey); // Debugging log
+}
+
+// Ensure the API key is loaded before making requests
+const apiKeyPromise = initializeApiKey();
 const baseURL = 'https://api-rbb.fhcibumn.id/general/career';
+(async()=>{
+    await apiKeyPromise;
+})();
 
 const headers = {
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "en-US,en;q=0.5",
     "Accept-Encoding": "gzip, deflate, br, zstd",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJCRDkxQTQxM0NGMTZCQzYyNzUxRkQwMkEyMUNGODZDMTgzREE3NjhCMUVCRDY3Q0M2QUY3MEE3M0U0NkMzODVGMjFBMDY3MzE1NEM5MEEyM0RDMjRDNzUyQjg5ODY3NjgiLCJjb21wYW55X2lkIjoiNkVDQzQxRkNFNjZEQzkwNUUyRjRGOUVCRkQyMEE2MTAiLCJ1c2VybGV2ZWwiOiJCRTU1NzYyMDgyODY2NzMwNkM2OTIxQUI0OEQ1MkY1NCIsInR5cGVfdXNlciI6IjIzQzlFNjMyMjc5QzI1ODI1RjFGRDdBRDVBNzdCRTQwIiwiaWF0IjoxNzQxNTM0MTcxLCJleHAiOjE3NDE1NDQ5NzF9.vWqwvBeZfzn5QbaQGzL1_WX-Z1RZxKf2CQKZLokdW4I",
+    "Authorization": `Bearer ${apiKey}`,
     "Origin": "https://rekrutmenbersama2025.fhcibumn.id",
     "Referer": "https://rekrutmenbersama2025.fhcibumn.id/",
     "Sec-Fetch-Dest": "empty",
@@ -18,6 +38,7 @@ const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0"
 };
 
+console.log(headers)
 // Fungsi-fungsi API
 export const vacancyMajor = async (listVacancyId) => {
     try {
