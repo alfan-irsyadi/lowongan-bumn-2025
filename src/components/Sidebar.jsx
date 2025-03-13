@@ -91,8 +91,7 @@ const Sidebar = ({ onFilterChange, onApplyFilters, isSidebarOpen , setStreamWeig
     const weights = await getDynamicStreamWeights(e)
     setLocalStreamWeight(weights)
     setStreamWeight(weights)
-    console.log(weights)
-    setIsGenerate(false)
+    console.log(weights)    
     setLoading(false)
     setWeightSuccess(true)
   }
@@ -189,7 +188,7 @@ const Sidebar = ({ onFilterChange, onApplyFilters, isSidebarOpen , setStreamWeig
               <label htmlFor="radio">Berdasarkan Weight</label>
             </div>
 
-            <div className={`w-full {toggleUserInterest ? "" : "hidden"}`}>
+            <div className={`w-full ${toggleUserInterest ? "" : "hidden"}`}>
               <label htmlFor="interest">User Interest</label><br />
               <input type="text" name="interest" className="bevel w-full"
                 value={userInterest}
@@ -198,7 +197,7 @@ const Sidebar = ({ onFilterChange, onApplyFilters, isSidebarOpen , setStreamWeig
               <button type="button" className="neo-button my-4 w-full" onClick={() => submitUserInterest(userInterest)}>
                 {loading ? "Loading" : "Generate"}
               </button>
-              <div className={`w-full p-4 ${!isGenerate && weightSuccess?"bg-green-400":isGenerate && !weightSuccess ? "bg-red-400":""}`}>{weightSuccess ? "Berhasil generate Bobot Stream" : "Gagal"}</div>
+              <div className={`w-full p-4 ${isGenerate && weightSuccess?"bg-green-400":""}`}>{isGenerate && weightSuccess ? "Berhasil generate Bobot Stream" :  ""}</div>
             </div>
             <div className={!toggleUserInterest ? "flex flex-col text-sm gap-4" : "flex-col gap-4 text-sm hidden"}>
               <span className="text-gray-500">input tingkat kecocokan dari 1 hingga 5</span>

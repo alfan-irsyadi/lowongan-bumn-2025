@@ -14,10 +14,10 @@ async function initializeApiKey() {
     } else {
         console.log('dari bukan node')
         apiKey = import.meta.env.VITE_TOGETHER_API_KEY;
-        console.log(apiKey)
+        // console.log(apiKey)
     }
 
-    console.log("API Key Loaded:", apiKey); // Debugging log
+    // console.log("API Key Loaded:", apiKey); // Debugging log
 }
 
 // Ensure the API key is loaded before making requests
