@@ -7,11 +7,14 @@ let apiKey = "";
 // Function to initialize API key (handles async dotenv)
 async function initializeApiKey() {
     if (isNode) {
+        console.log('node')
         const dotenv = await import("dotenv");
         dotenv.config();
         apiKey = process.env.TOGETHER_API_KEY;
     } else {
+        console.log('dari bukan node')
         apiKey = import.meta.env.VITE_TOGETHER_API_KEY;
+        console.log(apiKey)
     }
 
     console.log("API Key Loaded:", apiKey); // Debugging log
